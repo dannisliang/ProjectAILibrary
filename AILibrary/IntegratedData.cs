@@ -251,37 +251,24 @@ namespace AILibrary
         }
 
         /// <summary>
-        /// TODO : aaa
+        /// 메인에서 발생하는 Event의 정보를 가지고 있는 인스턴스를 가져옵니다.
         /// </summary>
-        public static bool IsEventHappen
+        public static EventScript Event
         {
-            get { return realizedData.isEventHappen; }
-            set { realizedData.isEventHappen = value; }
+            get { return realizedData.mainEventScript; }
         }
 
         /// <summary>
-        /// //TODO : ass
-        /// </summary>
-        public static string EventFileName
-        {
-            get { return realizedData.eventFileName; }
-            set { realizedData.eventFileName = value; }
-        }
-
-        /// <summary>
-        /// 게임의 통합적인 데이터를 실질적으로 가지고 있는 클래스입니다. 절대로 외부에서 인스턴스화 하지 마십시오.
+        /// 게임의 통합적인 데이터를 실질적으로 가지고 있는 클래스입니다. 절대로 외부에서 인스턴스화 하지 마세요.
         /// </summary>
         private class InnerIntegratedData
         {
             public Dictionary<int, Folder> folderHashMap;
             public Dictionary<int, Item> itemHashMap;
+            public EventScript mainEventScript;
             public string recentConsoleFolderPath;
             public bool isGUISet;
             public int favor;
-            
-            //TODO : Temp
-            public bool isEventHappen;
-            public string eventFileName;
 
             /// <summary>
             /// 새로운 InnerIntegratedData 인스턴스를 만듭니다.
@@ -290,8 +277,10 @@ namespace AILibrary
             {
                 this.folderHashMap = new Dictionary<int, Folder>();
                 this.itemHashMap = new Dictionary<int, Item>();
+                this.mainEventScript = new EventScript();
                 this.favor = 0;
                 this.recentConsoleFolderPath = "<color=lime>/root</color><color=yellow> $ </color>";
+
             }
         }
 

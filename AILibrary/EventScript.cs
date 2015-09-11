@@ -10,6 +10,47 @@ namespace AILibrary
     /// </summary>
     public class EventScript
     {
+        /// <summary>
+        /// EventScript 인스턴스를 초기화합니다.
+        /// </summary>
+        public EventScript()
+        {
+            this.DisableEvent();
+        }
 
+        /// <summary>
+        /// 주어진 XmlFile을 통해 메인에서 발생할 이벤트를 설정합니다.
+        /// </summary>
+        /// <param name="eventXmlFileNameToRead"></param>
+        public void SetEvent(string eventXmlFileNameToRead)
+        {
+            this.IsEventSet = true;
+            this.EventXmlFileName = eventXmlFileNameToRead;
+        }
+
+        /// <summary>
+        /// 설정되어 있는 이벤트를 비활성화합니다.
+        /// </summary>
+        public void DisableEvent()
+        {
+            this.IsEventSet = false;
+            this.EventXmlFileName = string.Empty;
+        }
+
+        /// <summary>
+        /// 이벤트가 설정되었는지 여부를 가져옵니다.
+        /// </summary>
+        public bool IsEventSet
+        {
+            get; private set;
+        }
+
+        /// <summary>
+        /// 메인에서 발생시킬 이벤트의 스크립트를 담는 XmlFile의 이름을 가져옵니다.
+        /// </summary>
+        public string EventXmlFileName
+        {
+            get; set;
+        }
     }
 }
