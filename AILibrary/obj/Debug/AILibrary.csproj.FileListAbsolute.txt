@@ -1,0 +1,5 @@
+c:\users\lumin\documents\visual studio 2013\Projects\AILibrary\AILibrary\bin\Debug\AILibrary.dll
+c:\users\lumin\documents\visual studio 2013\Projects\AILibrary\AILibrary\bin\Debug\AILibrary.pdb
+c:\users\lumin\documents\visual studio 2013\Projects\AILibrary\AILibrary\obj\Debug\AILibrary.csprojResolveAssemblyReference.cache
+c:\users\lumin\documents\visual studio 2013\Projects\AILibrary\AILibrary\obj\Debug\AILibrary.dll
+c:\users\lumin\documents\visual studio 2013\Projects\AILibrary\AILibrary\obj\Debug\AILibrary.pdb

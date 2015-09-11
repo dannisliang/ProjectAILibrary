@@ -1,0 +1,1780 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AILibrary</name>
+    </assembly>
+    <members>
+        <member name="T:AILibrary.ButtonScript">
+            <summary>
+            하나의 버튼 Script 정보를 가지고 있는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.ButtonScript.#ctor(System.String[],System.String[])">
+            <summary>
+            선택지를 주는 스크립트일 경우의 인스턴스를 초기화합니다. 만약 분기점을 주는 스크립트가 아니라면 이 생성자를 사용하지 마십시오.
+            </summary>
+            <param name="linkedScript">버튼과 연결되는 파일의 경로를 가리킵니다.</param>
+            <param name="buttonMessage">버튼의 내용을 가리킵니다.</param> 
+        </member>
+        <member name="P:AILibrary.ButtonScript.ButtonMessage">
+            <summary>
+            모든 버튼의 내용을 가져옵니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.ButtonScript.LinkedScript">
+            <summary>
+            버튼과 연결되는 파일들의 경로를 가져옵니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.ButtonScript.ButtonNumber">
+            <summary>
+            이 스크립트에서 사용할 버튼의 개수를 가져옵니다.
+            </summary>
+        </member>
+        <member name="T:AILibrary.CommandChecker">
+            <summary>
+            명령어 실행을 검사하는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.CommandChecker.#ctor(AILibrary.CommandXmlReader)">
+            <summary>
+            주어진 정보를 이용하여 CommandChecker 인스턴스를 초기화합니다.
+            </summary>
+            <param name="xmlReader">명령어 정보를 읽어들이기 위한 변수입니다.</param>
+        </member>
+        <member name="M:AILibrary.CommandChecker.CheckArgumentNumber(AILibrary.CommandList,System.String)">
+            <summary>
+            현재 명령어의 매개 변수 개수가 올바른지 검사합니다. false는 너무 많은 매개변수, null은 너무 적은 매개변수를 가리킵니다. true는 정상 입력입니다.
+            </summary>
+            <param name="command">현재 명령어를 가리킵니다.</param>
+            <param name="userInput">들어온 문자열 Input을 가리킵니다.</param>
+            <returns>성공 여부입니다.</returns>
+        </member>
+        <member name="M:AILibrary.CommandChecker.CheckFileFound(AILibrary.Folder,System.String)">
+            <summary>
+            현재 폴더에서 찾고자 하는 파일이 있는지 찾아냅니다. 아이템이 얻어지지 않았을 경우에도 탐색 실패로 처리됩니다.
+            </summary>
+            <param name="currentFolder">대상 폴더입니다.</param>
+            <param name="fileName">찾고자 하는 아이템의 이름을 가리킵니다.</param>
+            <returns>찾아낸 결과입니다. 실패할 경우 null을 return합니다.</returns>
+        </member>
+        <member name="M:AILibrary.CommandChecker.CheckFolderFound(AILibrary.Folder,System.String,System.Boolean)">
+            <summary>
+            현재 폴더에서 상위/하위 폴더가 존재하는지 찾아냅니다. 만약 접근 가능하지 않을 경우에도 실패로 처리됩니다.
+            </summary>
+            <param name="currentFolder">대상 폴더입니다.</param>
+            <param name="folderName">찾고자 하는 폴더의 이름입니다.</param>
+            <param name="isFindingUpper">상위 폴더를 찾아낼 것인지 결정합니다.</param>
+            <returns>찾아낸 결과입니다. 실패할 경우 null을 return합니다.</returns>
+        </member>
+        <member name="T:AILibrary.CommandDecoder">
+            <summary>
+            문자열이 콘솔 모드에서 어떤 명령을 가리키는지 해석하는 정적 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.CommandDecoder.InterpretCommand(System.String)">
+            <summary>
+            문자열이 콘솔 모드에서 어떤 명령을 가리키는지 해석하는 메서드입니다.
+            </summary>
+            <param name="line">해석하고자 하는 문자열입니다.</param>
+            <returns>해석된 명령어입니다.</returns>
+        </member>
+        <member name="T:AILibrary.CommandInfoList">
+            <summary>
+            명령어 실행 시 일어날 수 있는 상황들을 나열하고 있는 열거형입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandInfoList.Nothing">
+            <summary>
+            아무것도 아닌 상태입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandInfoList.NotFound">
+            <summary>
+            파일/폴더/명령어 등을 찾지 못한 상태입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandInfoList.NotAccessible">
+            <summary>
+            파일이나 폴더에 접근할 수 없는 상태입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandInfoList.RootNoUpper">
+            <summary>
+            폴더 이동 시 상위 폴더를 찾지 못한 상태입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandInfoList.TooManyArgs">
+            <summary>
+            명령어에 너무 많은 매개변수를 입력한 상태입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandInfoList.TooLessArgs">
+            <summary>
+            명령어에 너무 적은 매개변수를 입력한 상태입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandInfoList.Execute">
+            <summary>
+            명령어를 실행한 상태입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandInfoList.Invalid">
+            <summary>
+            명령어에 잘못된 매개변수를 입력한 상태입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandInfoList.AlreadyExecute">
+            <summary>
+            이미 실행된 명령어를 다시 실행한 상태입니다.
+            </summary>
+        </member>
+        <member name="T:AILibrary.CommandList">
+            <summary>
+            콘솔 모드에서 사용 가능한 명령어들을 나열하고 있는 열거형입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandList.none">
+            <summary>
+            지원하지 않는 명령어입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandList.introduction">
+            <summary>
+            초기 도입 메시지 명령어입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandList.empty">
+            <summary>
+            아무 명령어도 입력하지 않은 상태입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandList.run">
+            <summary>
+            Run 명령어입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandList.help">
+            <summary>
+            도움말 명령어입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandList.clear">
+            <summary>
+            Clear 명령어입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandList.movedir">
+            <summary>
+            폴더 위치를 변경하는 명령어입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandList.showdir">
+            <summary>
+            폴더의 내용을 보여주는 명령어입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandList.import">
+            <summary>
+            획득한 아이템을 Import 시키는 명령어입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandList.open">
+            <summary>
+            Import 시킨 아이템을 열어보는 명령어입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandList.exit">
+            <summary>
+            콘솔 모드를 나가는 명령어입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandList.admin">
+            <summary>
+            관리자 모드를 실행시키는 명령어입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandList.repair">
+            <summary>
+            프로그램 복구를 시도하는 명령어입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandList.info">
+            <summary>
+            파일의 정보를 보는 명령어입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandList.changestyle">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandList.setgui">
+            <summary>
+            GUI에 대한 설정을 하는 명령어입니다.
+            </summary>
+        </member>
+        <member name="T:AILibrary.CommandMessage">
+            <summary>
+            콘솔 모드에서 사용되는 메시지들을 담고 있는 정적 클래스입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.IntroductionMsg">
+            <summary>
+            초기 안내 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.NotExistMsg">
+            <summary>
+            존재하지 않는 명령어를 입력했을 때 출력할 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.ClearTooManyArgsMsg">
+            <summary>
+            Clear 명령어에 너무 많은 매개변수를 입력했을 때 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.RunMsg">
+            <summary>
+            Run 명령어를 입력했을 때 기본적으로 출력할 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.RunTooManyArgsMsg">
+            <summary>
+            Run 명령어에 너무 많은 매개변수를 입력했을 때 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.ImportTooLessArgsMsg">
+            <summary>
+            Import 명령어에 너무 적은 매개변수를 넣었을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.ImportTooManyArgsMsg">
+            <summary>
+            Import 명령어에 너무 많은 매개변수를 넣었을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.ImportNotFoundMsg">
+            <summary>
+            Import 실행 시 파일을 찾을 수 없었을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.ImportAlreadyMsg">
+            <summary>
+            Import 실행 시 파일이 이미 Import 되었을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.OpenNotFoundMsg">
+            <summary>
+            Open 명령어 수행 도중 파일을 찾을 수 없을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.OpenTooManyArgsMsg">
+            <summary>
+            Open 명령어에 너무 많은 매개변수를 넣었을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.OpenTooLessArgsMsg">
+            <summary>
+            Open 명령어에 너무 적은 매개변수를 넣었을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.OpenNotImportedMsg">
+            <summary>
+            Import 되지 않은 파일을 열려고 할 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.DirNoUpperForRootMsg">
+            <summary>
+            루트 디렉토리에서 상위 디렉토리로 이동하려 할 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.DirNotFoundMsg">
+            <summary>
+            찾고자 하는 폴더를 찾지 못했을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.DirNotAccessibleMsg">
+            <summary>
+            폴더에 접근이 불가능할 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.DirTooManyArgsMsg">
+            <summary>
+            MoveDir 명령어에서 유저가 너무 많은 매개변수를 입력했을 때의 메시지를 가져옵니다.   
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.DirTooLessArgsMsg">
+            <summary>
+            MoveDir 명령어에서 유저가 너무 적은 매개변수를 입력했을 때의 메시지를 가져옵니다.   
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.DirShowTooManyArgs">
+            <summary>
+            ShowDir 명령어에 너무 많은 매개변수를 입력했을 때 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.HelpMsg">
+            <summary>
+            도움말 명령어를 입력했을 때 출력할 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.HelpTooManyArgsMsg">
+            <summary>
+            도움말 명령어에 너무 많은 매개변수를 입력했을 때 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.HelpCommandNotFoundMsg">
+            <summary>
+            도움말을 불러오려는 명령어가 존재하지 않을 때 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.HelpRunCommandMsg">
+            <summary>
+            Run 명령어에 대한 도움말을 요청했을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.HelpOpenCommandMsg">
+            <summary>
+            Open 명령어에 대한 도움말을 요청했을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.HelpImportCommandMsg">
+            <summary>
+            Import 명령어에 대한 도움말을 요청했을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.HelpMoveDirCommandMsg">
+            <summary>
+            MoveDir 명령어에 대한 도움말을 요청했을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.HelpClearCommandMsg">
+            <summary>
+            Clear 명령어에 대한 도움말을 요청했을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.HelpShowDirCommandMsg">
+            <summary>
+            ShowDir 명령어에 대한 도움말을 요청했을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.HelpMixCommandMsg">
+            <summary>
+            Mix 명령어에 대한 도움말을 요청했을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.HelpAdminCommandMsg">
+            <summary>
+            Admin 명령어에 대한 도움말을 요청했을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.HelpRepairCommandMsg">
+            <summary>
+            Repair 명령어에 대한 도움말을 요청했을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.HelpInfoCommandMsg">
+            <summary>
+            Info 명령어에 대한 도움말을 요청했을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.HelpChangeStyleCommandMsg">
+            <summary>
+            ChangeStyle 명령어에 대한 도움말을 요청했을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.HelpSetGUICommandMsg">
+            <summary>
+            SetGUI 명령어에 대한 도움말을 요청했을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.HelpExitCommandMsg">
+            <summary>
+            Exit 명령어에 대한 도움말을 요청했을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.ExitTooManyArgsMsg">
+            <summary>
+            Exit 명령어에 너무 많은 매개변수를 입력했을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.InfoTooLessArgsMsg">
+            <summary>
+            Info 명령을 실행하기 위한 매개변수가 너무 적을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.InfoTooManyArgsMsg">
+            <summary>
+            Info 명령을 실행하기 위한 매개변수가 너무 많을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.InfoNotFoundMsg">
+            <summary>
+            Info 명령 실행 시 파일을 찾을 수 없을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.RepairTooManyArgsMsg">
+            <summary>
+            Repair 명령을 실행하기 위한 매개변수가 너무 많을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.RepairSuccessMsg">
+            <summary>
+            Repair 명령을 성공적으로 수행했을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.SetGUITooLessArgsMsg">
+            <summary>
+            SetGUI 명령을 실행하기 위한 매개변수가 너무 적을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.SetGUITooManyArgsMsg">
+            <summary>
+            SetGUI 명령을 실행하기 위한 매개변수가 너무 많을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.SetGUIInvalidArgsMsg">
+            <summary>
+            SetGUI 명령 실행 시에 올바르지 않은 매개변수를 입력했을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.SetGUIOnMsg">
+            <summary>
+            SetGUI 명령에서 GUI 설정을 켰을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.SetGUIAlreadyOnMsg">
+            <summary>
+            SetGUI 명령에서 이미 GUI 옵션이 켜져있었을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.SetGUIOffMsg">
+            <summary>
+            SetGUI 명령에서 GUI 설정을 껐을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.CommandMessage.SetGUIAlreadyOffMsg">
+            <summary>
+            SetGUI 명령에서 이미 GUI 옵션이 꺼져있었을 때의 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.CommandMessage.ImportSuccessMsg(System.String)">
+            <summary>
+            Import를 성공적으로 완료했을 때의 메시지를 가져옵니다.
+            </summary>
+            <param name="itemName">아이템 이름입니다.</param>
+            <returns>가져오는 메시지입니다.</returns>
+        </member>
+        <member name="P:AILibrary.CommandMessage.NextLineMsg">
+            <summary>
+            개행 후 출력할 메시지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.CommandMessage.CurrentDir">
+            <summary>
+            현재 폴더 경로를 가져오거나 설정합니다.
+            </summary>
+        </member>
+        <member name="T:AILibrary.CommandXmlReader">
+            <summary>
+            콘솔에 관련된 메시지가 들어있는 Xml 파일을 읽어들이는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.CommandXmlReader.#ctor(System.String,System.Boolean)">
+            <summary>
+            주어진 정보를 이용하여 CommandXmlReader 인스턴스를 초기화합니다.
+            </summary>
+            <param name="filePathOrContent">Xml 파일이 있는 경로 혹은 Xml 내용 자체입니다.</param>
+            <param name="isPath">주어진 문자열이 파일의 경로인지에 대한 여부입니다.</param>
+        </member>
+        <member name="M:AILibrary.CommandXmlReader.Message(AILibrary.CommandList,AILibrary.CommandList)">
+            <summary>
+            주어진 매개변수를 통해 상황에 맞는 메시지를 불러옵니다. 이 메서드는 Help 명령어가 아니라면 사용하지 마십시오.
+            </summary>
+            <param name="command">현재 사용하고자 하는 명령어입니다.</param>
+            <param name="info">명령어의 입력 상태를 가리킵니다.</param>
+            <returns>주어진 값에 대한 정보 메시지입니다.</returns>
+        </member>
+        <member name="M:AILibrary.CommandXmlReader.Message(AILibrary.CommandList,AILibrary.CommandInfoList)">
+            <summary>
+            주어진 매개변수를 통해 상황에 맞는 메시지를 불러옵니다.
+            </summary>
+            <param name="command">현재 사용하고자 하는 명령어입니다.</param>
+            <param name="info">명령어의 입력 상태를 가리킵니다.</param>
+            <returns>주어진 값에 대한 정보 메시지입니다.</returns>
+        </member>
+        <member name="M:AILibrary.CommandXmlReader.MinArgumentNumber(AILibrary.CommandList)">
+            <summary>
+            명령어의 최소 요구 매개변수 개수를 가져옵니다.
+            </summary>
+            <param name="command">해당 명령어를 가리킵니다.</param>
+            <returns>이 명령어의 최소 요구 매개변수 개수입니다.</returns>
+        </member>
+        <member name="M:AILibrary.CommandXmlReader.MaxArgumentNumber(AILibrary.CommandList)">
+            <summary>
+            명령어의 최대 요구 매개변수 개수를 가져옵니다.
+            </summary>
+            <param name="command">해당 명령어를 가리킵니다.</param>
+            <returns>이 명령어의 최대 요구 매개변수 개수입니다.</returns>
+        </member>
+        <member name="T:AILibrary.DataAddress">
+            <summary>
+            자료의 주소에 대한 정보를 담고 있는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.DataAddress.#ctor(System.Int32,System.String,UnityEngine.Sprite,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            아이템 구성을 위해 필요한 정보를 통해 DataAddress 인스턴스를 초기화합니다.
+            </summary>
+            <param name="itemID">해당 작업일지의 고유 ID를 가리킵니다.</param>
+            <param name="name">해당 작업일지의 이름입니다.</param>
+            <param name="itemSprite">아이템의 이미지를 나타냅니다. 기본 값은 null입니다.</param>
+            <param name="itemDescription">이 아이템에 대한 설명문을 나타냅니다.</param>
+            <param name="isGet">획득되었는지에 대한 여부입니다. 기본 값은 False입니다.</param>
+            <param name="isImported">Import 되었는지에 대한 여부입니다. 기본 값은 False입니다.</param>
+        </member>
+        <member name="T:AILibrary.DynamicString">
+            <summary>
+            정적인 문자열과 동적인 문자열을 나눠서 관리할 수 있는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.DynamicString.#ctor(System.String,System.String)">
+            <summary>
+            초기 정적/동적 문자열을 가지고 DynamicString 인스턴스를 초기화합니다.
+            </summary>
+            <param name="initialStatic">초기의 정적 문자열입니다.</param>
+            <param name="initialDynamic">초기의 동적 문자열입니다.</param>
+        </member>
+        <member name="P:AILibrary.DynamicString.DynamicPartString">
+            <summary>
+            현재 동적인 부분의 문자열을 가져옵니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.DynamicString.StaticPartString">
+            <summary>
+            현재 정적인 부분의 문자열을 가져옵니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.DynamicString.ClearStaticString">
+            <summary>
+            현재 정적인 부분의 문자열을 초기화합니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.DynamicString.ClearDynamicString">
+            <summary>
+            현재 동적인 부분의 문자열을 초기화합니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.DynamicString.SetDynamicString(System.String,System.Boolean)">
+            <summary>
+            동적 문자열에 내용을 추가합니다.
+            </summary>
+            <param name="toSet">추가하려는 문자열입니다.</param>
+            <param name="appendNewLine">새로운 줄을 추가할지에 대한 여부입니다. 기본 값은 false입니다.</param>
+        </member>
+        <member name="M:AILibrary.DynamicString.SetStaticString(System.String,System.Boolean)">
+            <summary>
+            정적 문자열에 내용을 추가합니다.
+            </summary>
+            <param name="toSet">추가하려는 문자열입니다.</param>
+            <param name="appendNewLine">새로운 줄을 추가할지에 대한 여부입니다. 기본 값은 false입니다.</param>
+        </member>
+        <member name="M:AILibrary.DynamicString.AddDynamicString(System.String,System.Boolean)">
+            <summary>
+            동적 문자열에 내용을 추가합니다.
+            </summary>
+            <param name="toAdd">추가하려는 문자열입니다.</param>
+            <param name="appendNewLine">새로운 줄을 추가할지에 대한 여부입니다. 기본 값은 false입니다.</param>
+        </member>
+        <member name="M:AILibrary.DynamicString.AddStaticString(System.String,System.Boolean)">
+            <summary>
+            정적 문자열에 내용을 추가합니다.
+            </summary>
+            <param name="toAdd">추가하려는 문자열입니다.</param>
+            <param name="appendNewLine">새로운 줄을 추가할지에 대한 여부입니다. 기본 값은 false입니다.</param>
+        </member>
+        <member name="T:AILibrary.EventScript">
+            <summary>
+            메인 Scene에서 발생하는 Event에 대한 정보를 관리하는 클래스입니다.
+            </summary>
+        </member>
+        <member name="T:AILibrary.Folder">
+            <summary>
+            폴더에 대한 정보를 담고 있는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.Folder.#ctor(System.Int32,System.String,UnityEngine.Sprite,AILibrary.FolderShortcut,System.Boolean,AILibrary.FolderShortcut[],AILibrary.Item[])">
+            <summary>
+            폴더 구현을 위해 필요한 정보를 가지고 Folder 인스턴스를 초기화합니다.
+            </summary>
+            <param name="folderID">해당 폴더의 ID입니다.</param>
+            <param name="folderName">해당 폴더의 이름입니다.</param>
+            <param name="folderSprite">해당 폴더의 이미지를 가리킵니다.</param>
+            <param name="upperFolderInfo">해당 폴더의 상위 폴더 정보입니다.</param>
+            <param name="isAccessible">해당 폴더의 접근 여부입니다. 기본 값은 False입니다.</param>
+            <param name="lowerFolderInfo">해당 폴더의 하위 폴더들의 ID를 가리킵니다. 기본 값은 Null(존재하지 않음)입니다.</param>
+            <param name="items">해당 폴더에 속해있는 아이템의 리스트입니다.</param>
+        </member>
+        <member name="P:AILibrary.Folder.FolderID">
+            <summary>
+            해당 폴더의 ID를 가져옵니다. 읽기 전용 프로퍼티입니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.Folder.UpperFolderInfo">
+            <summary>
+            해당 폴더의 상위 폴더를 가져옵니다. 읽기 전용 프로퍼티입니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.Folder.Name">
+            <summary>
+            해당 폴더의 이름을 가져옵니다. 읽기 전용 프로퍼티입니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.Folder.IsAccessible">
+            <summary>
+            해당 폴더에 접근 가능한 지에 대한 여부를 가져오거나 설정합니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.Folder.Items">
+            <summary>
+            해당 폴더에 속해있는 아이템의 리스트를 가져옵니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.Folder.LowerFolderInfo">
+            <summary>
+            해당 폴더의 하위 폴더들의 리스트를 가져옵니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.Folder.FolderSprite">
+            <summary>
+            해당 폴더의 이미지 정보(Sprite)를 가져옵니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.Folder.AddItem(AILibrary.Item)">
+            <summary>
+            해당 폴더에 속하는 아이템을 추가합니다.
+            </summary>
+            <param name="item">추가하고자 하는 아이템입니다.</param>
+        </member>
+        <member name="M:AILibrary.Folder.DeleteItem(AILibrary.Item)">
+            <summary>
+            해당 폴더에 속해있던 아이템을 이 폴더 리스트에서 지웁니다.
+            </summary>
+            <param name="item">지우고자 하는 아이템입니다.</param>
+        </member>
+        <member name="M:AILibrary.Folder.AddLowerFolder(AILibrary.FolderShortcut)">
+            <summary>
+            해당 폴더의 하위 폴더를 추가합니다.
+            </summary>
+            <param name="folder">추가하고자 하는 폴더입니다.</param>
+        </member>
+        <member name="M:AILibrary.Folder.DeleteLowerFolder(AILibrary.FolderShortcut)">
+            <summary>
+            인자로 전달된 폴더를 해당 폴더의 하위 폴더 리스트에서 지웁니다.
+            </summary>
+            <param name="folder">지우고자 하는 폴더입니다.</param>
+        </member>
+        <member name="M:AILibrary.Folder.ToShortcut">
+            <summary>
+            현재 폴더의 정보를 이용하여 FolderShortcut 인스턴스를 만듭니다.
+            </summary>
+            <returns>FolderShortcut 인스턴스입니다.</returns>
+        </member>
+        <member name="M:AILibrary.Folder.PrintFolderInfo">
+            <summary>
+            해당 폴더에 들어있는 모든 정보들을 문자열에 담아 반환해줍니다.
+            </summary>
+            <returns>해당 폴더의 정보가 담겨있는 문자열입니다.</returns>
+        </member>
+        <member name="M:AILibrary.Folder.FindFolder(AILibrary.Folder[],System.String)">
+            <summary>
+            폴더 배열에서 찾고자 하는 아이템을 찾아줍니다. 찾지 못하면 null을 반환합니다.
+            </summary>
+            <param name="folders">여러 폴더가 들어있는 배열입니다.</param>
+            <param name="nameToFind">찾고자 하는 폴더의 이름입니다.</param>
+            <returns>찾은 폴더입니다.</returns>
+        </member>
+        <member name="T:AILibrary.FolderShortcut">
+            <summary>
+            폴더와 관련된 간단한 정보만을 기록하는 클래스입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.FolderShortcut.FolderName">
+            <summary>
+            폴더의 이름을 가져옵니다. 읽기 전용입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.FolderShortcut.FolderID">
+            <summary>
+            폴더의 ID를 가져옵니다. 읽기 전용입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.FolderShortcut.FolderSprite">
+            <summary>
+            폴더의 이미지(Sprite)를 가져옵니다. 읽기 전용입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.FolderShortcut.#ctor(System.Int32,System.String,UnityEngine.Sprite)">
+            <summary>
+            폴더의 간단한 정보를 통해 FolderShortcut 인스턴스를 초기화합니다.
+            </summary>
+            <param name="folderID">폴더의 ID를 가리킵니다.</param>
+            <param name="folderName">폴더의 이름을 가리킵니다.</param>
+            <param name="folderSprite">폴더의 이미지(Sprite)를 나타냅니다.</param>
+        </member>
+        <member name="T:AILibrary.InputScript">
+            <summary>
+            하나의 입력 Script 정보를 가지고 있는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.InputScript.#ctor(System.String[],System.String[])">
+            <summary>
+            사용자의 입력을 받는 스크립트의 인스턴스를 초기화합니다.
+            </summary>
+            <param name="linkedScript">각 입력과 대응되어 연결되는 파일의 경로를 가리킵니다.</param>
+            <param name="messageCase">모든 입력 경우을 가리킵니다.</param> 
+        </member>
+        <member name="P:AILibrary.InputScript.MessageCases">
+            <summary>
+            모든 입력 케이스의 내용을 가져옵니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.InputScript.LinkedScript">
+            <summary>
+            각 입력들과 연결되는 파일들의 경로를 가져옵니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.InputScript.CaseNumber">
+            <summary>
+            이 스크립트에서 입력받는 입력 종류의 개수를 가져옵니다.
+            </summary>
+        </member>
+        <member name="T:AILibrary.IntegratedData">
+            <summary>
+            게임의 통합된 데이터를 관리하는 정적 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.IntegratedData.#cctor">
+            <summary>
+            초기 데이터들을 초기화합니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.IntegratedData.IsGUISet">
+            <summary>
+            게임의 GUI가 세팅되어 있는지에 대한 여부입니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.IntegratedData.Favor">
+            <summary>
+            현재 호감도를 가져오거나 설정합니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.IntegratedData.SaveData">
+            <summary>
+            현재 데이터를 파일에 저장합니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.IntegratedData.LoadData">
+            <summary>
+            게임 데이터를 파일에서 불러옵니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.IntegratedData.GetFolderData(System.Int32)">
+            <summary>
+            폴더의 ID를 이용하여 그에 해당하는 폴더 데이터를 가져옵니다.
+            </summary>
+            <param name="folderID">얻고자 하는 폴더의 ID 값입니다.</param>
+            <returns>해당하는 폴더입니다.</returns>
+        </member>
+        <member name="M:AILibrary.IntegratedData.GetItemData(System.Int32)">
+            <summary>
+            아이템 ID를 이용하여 그에 해당하는 아이템 데이터를 가져옵니다.
+            </summary>
+            <param name="itemID">얻고자 하는 아이템의 ID 값입니다.</param>
+            <returns>해당하는 아이템입니다.</returns>
+        </member>
+        <member name="P:AILibrary.IntegratedData.RecentFolderPath">
+            <summary>
+            가장 최근에 참조하고 있는 폴더의 경로를 가져옵니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.IntegratedData.ChangeRecentFolderPath(AILibrary.Folder,System.Boolean)">
+            <summary>
+            가장 최근에 참조하고 있는 폴더의 경로를 반영시킵니다.
+            </summary>
+            <param name="folderToChange">경로를 참조시킬 폴더를 가리킵니다.</param>
+            <param name="isShrink">참조 폴더 경로를 줄이는 것인지, 늘리는 것인지에 대한 여부입니다.</param>
+        </member>
+        <member name="M:AILibrary.IntegratedData.ResetRecentFolderPath">
+            <summary>
+            최근 참조 폴더 경로를 root 폴더로 초기화합니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.IntegratedData.AddFolderToHashMap(System.String)">
+            <summary>
+            폴더 정보가 담겨있는 Xml 파일의 경로를 통해 해쉬맵에 해당 폴더를 추가합니다.
+            </summary>
+            <param name="folderXmlPath">폴더 정보가 담겨있는 Xml 파일의 경로입니다.</param>
+        </member>
+        <member name="M:AILibrary.IntegratedData.AddItemToHashMap(System.String)">
+            <summary>
+            아이템 정보가 담겨있는 Xml 파일의 경로를 통해 해쉬맵에 해당 아이템을 추가합니다.
+            </summary>
+            <param name="itemXmlPath">아이템 정보가 담겨있는 Xml 파일의 경로입니다.</param>
+        </member>
+        <member name="M:AILibrary.IntegratedData.LoadAllFolderToHashMap">
+            <summary>
+            모든 폴더 정보를 읽어들여 Dictionary에 추가합니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.IntegratedData.LoadAllItemToHashMap">
+            <summary>
+            모든 아이템 정보를 읽어들여 Dictionary에 추가합니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.IntegratedData.IsEventHappen">
+            <summary>
+            TODO : aaa
+            </summary>
+        </member>
+        <member name="P:AILibrary.IntegratedData.EventFileName">
+            <summary>
+            //TODO : ass
+            </summary>
+        </member>
+        <member name="T:AILibrary.IntegratedData.InnerIntegratedData">
+            <summary>
+            게임의 통합적인 데이터를 실질적으로 가지고 있는 클래스입니다. 절대로 외부에서 인스턴스화 하지 마십시오.
+            </summary>
+        </member>
+        <member name="M:AILibrary.IntegratedData.InnerIntegratedData.#ctor">
+            <summary>
+            새로운 InnerIntegratedData 인스턴스를 만듭니다.
+            </summary>
+        </member>
+        <member name="T:AILibrary.BackgroundScript">
+            <summary>
+            잠시 멈추는 행동을 하는 스크립트 정보를 가지고 있는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.BackgroundScript.#ctor(UnityEngine.Sprite,System.Boolean)">
+            <summary>
+            주어진 정보를 이용하여 BackgroundScript 인스턴스를 초기화합니다.
+            </summary>
+            <param name="spriteToUse">사용할 Sprite 파일을 가리킵니다.</param>
+            <param name="isWrappingUI">이 스크립트가 현재 UI를 덮어서 적용되는 것인지 결정합니다.</param>
+        </member>
+        <member name="P:AILibrary.BackgroundScript.BackgroundSprite">
+            <summary>
+            배경으로 사용할 Sprite를 가져옵니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.BackgroundScript.IsWrappingUI">
+            <summary>
+            이 스크립트가 현재 UI를 덮어서 적용되는 것인지 여부를 가져옵니다.
+            </summary>
+        </member>
+        <member name="T:AILibrary.Script">
+            <summary>
+            각종 Script들이 공유하는 추상 클래스입니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.Script.ScriptCode">
+            <summary>
+            이 스크립트의 스크립트 코드를 가져옵니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.Script.IsStepScript">
+            <summary>
+            이 스크립트가 하나의 단계를 차지하는 스크립트인지 여부를 가져옵니다.
+            </summary>
+        </member>
+        <member name="T:AILibrary.Item">
+            <summary>
+            아이템에 대한 정보를 담고 있는 추상 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.Item.CheckUniqueID(System.Int32)">
+            <summary>
+            아이템의 ID가 다른 아이템들의 ID와 충돌하지 않는지 체크합니다. 겹칠 시에는 예외가 발생합니다.
+            </summary>
+            <param name="itemID">검사하고자 하는 ID입니다.</param>
+        </member>
+        <member name="M:AILibrary.Item.#ctor(System.Int32,System.String,UnityEngine.Sprite,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            아이템 구성을 위해 필요한 정보를 통해 Item 인스턴스를 초기화합니다.
+            </summary>
+            <param name="itemID">해당 Item의 고유 ID를 가리킵니다.</param>
+            <param name="name">해당 Item의 이름입니다.</param>
+            <param name="itemSprite">아이템의 이미지를 나타냅니다. 기본 값은 null입니다.</param>
+            <param name="itemDescription">이 아이템에 대한 설명문을 나타냅니다.</param>
+            <param name="isGet">획득되었는지에 대한 여부입니다. 기본 값은 False입니다.</param>
+            <param name="isImported">Import 되었는지에 대한 여부입니다. 기본 값은 False입니다.</param>
+        </member>
+        <member name="P:AILibrary.Item.ItemID">
+            <summary>
+            이 아이템의 고유 ID를 가져옵니다. 읽기 전용 프로퍼티입니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.Item.Name">
+            <summary>
+            이 아이템의 이름을 가져옵니다. 읽기 전용 프로퍼티입니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.Item.IsGet">
+            <summary>
+            이 아이템의 획득 여부를 가져오거나 설정합니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.Item.IsImported">
+            <summary>
+            이 아이템이 Import 되었는지에 대한 여부를 가져오거나 설정합니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.Item.ItemSprite">
+            <summary>
+            현재 아이템의 이미지(Sprite)를 가져옵니다. 읽기 전용 프로퍼티입니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.Item.ItemDescription">
+            <summary>
+            이 아이템에 대한 설명을 가져옵니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.Item.FindItem(AILibrary.Item[],System.String)">
+            <summary>
+            아이템 배열에서 찾고자 하는 아이템을 찾아줍니다. 찾지 못하면 null을 반환합니다.
+            </summary>
+            <param name="items">여러 아이템이 들어있는 배열입니다.</param>
+            <param name="nameToFind">찾고자 하는 아이템의 이름입니다.</param>
+            <returns>찾은 아이템입니다.</returns>
+        </member>
+        <member name="M:AILibrary.Item.ItemFromDictionary(System.Int32)">
+            <summary>
+            이미 생성된 적 있던 아이템을 탐색하여 반환합니다.
+            </summary>
+            <param name="itemIdToFind">찾으려고 하는 아이템의 아이디입니다.</param>
+            <returns>결과입니다.</returns>
+        </member>
+        <member name="T:AILibrary.IUsableItem">
+            <summary>
+            사용할 수 있는 아이템(예 : 폴더/아이템)이 공유하는 빈 인터페이스입니다.
+            </summary>
+        </member>
+        <member name="T:AILibrary.JumpScript">
+            <summary>
+            다른 Script로 이동하는 스크립트 정보를 가지고 있는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.JumpScript.#ctor(System.String)">
+            <summary>
+            주어진 정보를 이용하여 JumpScript 인스턴스를 초기화합니다.
+            </summary>
+            <param name="linkedScript">이 스크립트에서 연결될 스크립트입니다.</param>
+        </member>
+        <member name="P:AILibrary.JumpScript.TargetScript">
+            <summary>
+            목표가 되는 스크립트를 가져옵니다.
+            </summary>
+        </member>
+        <member name="T:AILibrary.MoveScript">
+            <summary>
+            하나의 이동 관련 Script 정보를 가지고 있는 클래스입니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.MoveScript.DirectionXQuantity">
+            <summary>
+            X축으로 이동할 양을 가져옵니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.MoveScript.DirectionYQuantity">
+            <summary>
+            Y축으로 이동할 양을 가져옵니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.MoveScript.#ctor(System.Int32,System.Int32)">
+            <summary>
+            주어진 정보를 이용하여 MoveScript 인스턴스를 초기화합니다.
+            </summary>
+            <param name="xQuantity">X축으로 이동할 양을 가리킵니다.</param>
+            <param name="yQuantity">Y축으로 이동할 양을 가리킵니다.</param>
+        </member>
+        <member name="T:AILibrary.PartialData">
+            <summary>
+            자료의 파편에 대한 정보를 담고 있는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.PartialData.#ctor(System.Int32,System.String,UnityEngine.Sprite,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            아이템 구성을 위해 필요한 정보를 통해 PartialData 인스턴스를 초기화합니다.
+            </summary>
+            <param name="itemID">해당 작업일지의 고유 ID를 가리킵니다.</param>
+            <param name="name">해당 작업일지의 이름입니다.</param>
+            <param name="itemSprite">아이템의 이미지를 나타냅니다. 기본 값은 null입니다.</param>
+            <param name="itemDescription">이 아이템에 대한 설명문을 나타냅니다.</param>
+            <param name="isGet">획득되었는지에 대한 여부입니다. 기본 값은 False입니다.</param>
+            <param name="isImported">Import 되었는지에 대한 여부입니다. 기본 값은 False입니다.</param>
+        </member>
+        <member name="T:AILibrary.MessageScript">
+            <summary>
+            하나의 메시지 Script 정보를 가지고 있는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.MessageScript.#ctor(System.String,UnityEngine.Sprite)">
+            <summary>
+            메시지 Script의 정보를 통해 인스턴스를 초기화합니다. 이 경우 대화 인물의 이름은 アイ로 설정됩니다.
+            </summary>
+            <param name="message">인물의 대사입니다.</param>
+            <param name="image">인물의 이미지입니다.</param>
+        </member>
+        <member name="M:AILibrary.MessageScript.#ctor(System.String,System.String,UnityEngine.Sprite)">
+            <summary>
+            메시지 Script의 정보를 통해 인스턴스를 초기화합니다.
+            </summary>
+            <param name="character">대화하는 인물의 이름입니다.</param>
+            <param name="message">인물의 대사입니다.</param>
+            <param name="image">인물의 이미지입니다.</param>
+        </member>
+        <member name="P:AILibrary.MessageScript.Message">
+            <summary>
+            현재 인물의 대사를 가져옵니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.MessageScript.Image">
+            <summary>
+            현재 인물의 이미지를 가져옵니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.MessageScript.Character">
+            <summary>
+            대화하는 인물의 이름을 가져옵니다.
+            </summary>
+        </member>
+        <member name="T:AILibrary.ScriptTypeCode">
+            <summary>
+            각종 스크립트와 그에 대한 코드 넘버를 열거하는 열거자입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.ScriptTypeCode.ButtonScript">
+            <summary>
+            ButtonScript 입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.ScriptTypeCode.MessageScript">
+            <summary>
+            MessageScript 입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.ScriptTypeCode.InputScript">
+            <summary>
+            InputScript 입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.ScriptTypeCode.SleepScript">
+            <summary>
+            SleepScript 입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.ScriptTypeCode.JumpScript">
+            <summary>
+            JumpScript 입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.ScriptTypeCode.SoundScript">
+            <summary>
+            SoundScript 입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.ScriptTypeCode.VibrationScript">
+            <summary>
+            VibrationScript 입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.ScriptTypeCode.MoveScript">
+            <summary>
+            MoveScript 입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.ScriptTypeCode.BackgroundScript">
+            <summary>
+            BackgroundScript 입니다.
+            </summary>
+        </member>
+        <member name="T:AILibrary.SleepScript">
+            <summary>
+            잠시 멈추는 행동을 하는 스크립트 정보를 가지고 있는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.SleepScript.#ctor(System.Single)">
+            <summary>
+            주어진 정보를 이용하여 SleepScript 인스턴스를 초기화합니다.
+            </summary>
+            <param name="TimeToSleep">멈추게 할 시간을 가리킵니다.</param>
+        </member>
+        <member name="P:AILibrary.SleepScript.SleepTime">
+            <summary>
+            멈추는 시간을 가져옵니다.
+            </summary>
+        </member>
+        <member name="T:AILibrary.SoundScript">
+            <summary>
+            하나의 사운드 Script 정보를 가지고 있는 클래스입니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.SoundScript.IsRepeat">
+            <summary>
+            사운드 파일을 반복해서 재생할 것인지에 대한 여부입니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.SoundScript.Sound">
+            <summary>
+            대상 사운드 파일입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.SoundScript.#ctor(UnityEngine.AudioClip,System.Boolean)">
+            <summary>
+            주어진 정보를 이용하여 SoundScript 인스턴스를 만듭니다.
+            </summary>
+            <param name="toPlay">재생할 사운드 파일입니다.</param>
+            <param name="isRepeat">이 사운드 파일을 반복하여 재생할 것인지에 대한 여부입니다. 기본 값은 False입니다.</param>
+        </member>
+        <member name="T:AILibrary.VibrationScript">
+            <summary>
+            하나의 흔들림 관련 Script 정보를 가지고 있는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.VibrationScript.#ctor(AILibrary.VibrationState,System.Single,System.Int32)">
+            <summary>
+            주어진 정보를 이용하여 VibrationScript 인스턴스를 초기화합니다.
+            </summary>
+            <param name="direction">흔들리는 방향을 설정합니다.</param>
+            <param name="speed">흔들리는 속도를 설정합니다.</param>
+            <param name="waveQuantity">흔들리는 횟수를 설정합니다.</param>
+        </member>
+        <member name="P:AILibrary.VibrationScript.Direction">
+            <summary>
+            흔들림 방향을 가져옵니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.VibrationScript.Speed">
+            <summary>
+            흔들리는 속도를 가져옵니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.VibrationScript.WaveQuantity">
+            <summary>
+            흔들리는 양을 가져옵니다.
+            </summary>
+        </member>
+        <member name="T:AILibrary.VibrationState">
+            <summary>
+            흔들리는 방향을 열거하는 열거자입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.VibrationState.Vertical">
+            <summary>
+            세로 방향입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.VibrationState.Horizontal">
+            <summary>
+            가로 방향입니다.
+            </summary>
+        </member>
+        <member name="T:AILibrary.XmlButtonReader">
+            <summary>
+            스크립트의 Xml 파일을 읽어 Button 스크립트와 관련된 항목을 Parsing 해주는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.XmlButtonReader.#ctor(System.String,System.Boolean)">
+            <summary>
+            주어진 정보를 이용하여 XmlButtonReader 인스턴스를 초기화합니다.
+            </summary>
+            <param name="filePathOrContent">Xml 파일이 있는 경로 혹은 Xml 내용 자체입니다.</param>
+            <param name="isPath">주어진 문자열이 파일의 경로인지에 대한 여부입니다.</param>
+        </member>
+        <member name="M:AILibrary.XmlButtonReader.GetButtonNumber(System.Int32)">
+            <summary>
+            대상 스크립트에서 필요한 버튼의 개수를 가져옵니다. 버튼이 필요한 스크립트가 아닐 시 예외가 throw됩니다.
+            </summary>
+            <param name="scriptID">구하고자 하는 버튼 개수가 담겨있는 스크립트 ID입니다.</param>
+            <returns>이 스크립트에서 필요한 버튼의 개수입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlButtonReader.GetButtonMessage(System.Int32)">
+            <summary>
+            대상 스크립트에서 버튼에 쓰여질 메시지를 가져옵니다. 버튼이 필요한 스크립트가 아닐 시 예외가 throw됩니다.
+            </summary>
+            <param name="scriptID">가져오고자 하는 메시지가 있는 스크립트 ID입니다.</param>
+            <returns>버튼에 쓰여질 메시지 배열입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlButtonReader.GetButtonLinkedScript(System.Int32)">
+            <summary>
+            대상 스크립트에서 버튼과 연결된 파일의 경로들을 가져옵니다. 버튼이 필요한 스크립트가 아닐 시 예외가 throw됩니다.
+            </summary>
+            <param name="scriptID">가져오고자 하는 메시지가 있는 스크립트 ID입니다.</param>
+            <returns>버튼과 연결된 파일의 경로들입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlButtonReader.GetScript(System.Int32)">
+            <summary>
+            대상 스크립트에서 정보를 수집하여 ButtonScript 인스턴스를 만듭니다.
+            </summary>
+            <param name="scriptID">목표 스크립트 ID입니다.</param>
+            <returns>완성된 ButtonScript 인스턴스입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlButtonReader.CheckHasWrongLength(System.String[],System.Int32)">
+            <summary>
+            불러온 결과물이 Xml 파일에 기재된 버튼의 개수가 같은지 검사합니다. 같지 않을 경우 예외가 throw됩니다.
+            </summary>
+            <param name="toCheck">확인할 문자열의 배열입니다.</param>
+            <param name="scriptID">확인할 스크립트가 들어있는 ID입니다.</param>
+        </member>
+        <member name="T:AILibrary.XmlInputReader">
+            <summary>
+            스크립트의 Xml 파일을 읽어 Input 스크립트와 관련된 항목을 Parsing 해주는 클래스입니다.
+            </summary>this.IsNeedThisScript(0, scriptID)
+        </member>
+        <member name="M:AILibrary.XmlInputReader.#ctor(System.String,System.Boolean)">
+            <summary>
+            주어진 정보를 이용하여 XmlInputReader 인스턴스를 초기화합니다.
+            </summary>
+            <param name="filePathOrContent">Xml 파일이 있는 경로 혹은 Xml 내용 자체입니다.</param>
+            <param name="isPath">주어진 문자열이 파일의 경로인지에 대한 여부입니다.</param>
+        </member>
+        <member name="M:AILibrary.XmlInputReader.GetMessageCaseNumber(System.Int32)">
+            <summary>
+            대상 스크립트에서 이 스크립트에서 입력받는 입력 종류의 개수를 가져옵니다. InputScript가 필요한 스크립트가 아닐 시 예외가 throw됩니다.
+            </summary>
+            <param name="scriptID">구하고자 하는 입력 종류 개수가 담겨있는 스크립트 ID입니다.</param>
+            <returns>이 스크립트에서 입력받는 입력 종류의 개수입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlInputReader.GetMessageCase(System.Int32)">
+            <summary>
+            대상 스크립트에서 모든 입력 케이스의 내용을 가져옵니다. InputScript가 필요한 스크립트가 아닐 시 예외가 throw됩니다.
+            </summary>
+            <param name="scriptID">가져오고자 하는 메시지가 있는 스크립트 ID입니다.</param>
+            <returns>모든 입력 케이스의 내용입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlInputReader.GetLinkedScript(System.Int32)">
+            <summary>
+            대상 스크립트에서 각 입력들과 연결되는 파일들의 경로들을 가져옵니다. InputScript가 필요한 스크립트가 아닐 시 예외가 throw됩니다.
+            </summary>
+            <param name="scriptID">가져오고자 하는 메시지가 있는 스크립트 ID입니다.</param>
+            <returns>각 입력들과 연결되는 파일들의 경로들입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlInputReader.GetScript(System.Int32)">
+            <summary>
+            대상 스크립트에서 정보를 수집하여 InputScript 인스턴스를 만듭니다.
+            </summary>
+            <param name="scriptID">목표 스크립트 ID입니다.</param>
+            <returns>완성된 InputScript 인스턴스입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlInputReader.CheckHasWrongLength(System.String[],System.Int32)">
+            <summary>
+            불러온 결과물이 Xml 파일에 기재된 버튼의 개수가 같은지 검사합니다. 같지 않을 경우 예외가 throw됩니다.
+            </summary>
+            <param name="toCheck">확인할 문자열의 배열입니다.</param>
+            <param name="scriptID">확인할 스크립트가 들어있는 ID입니다.</param>
+        </member>
+        <member name="T:AILibrary.XmlItemReader">
+            <summary>
+            아이템 정보가 들어있는 Xml 파일을 읽어 Parsing 해주는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.XmlItemReader.#ctor(System.String,System.Boolean)">
+            <summary>
+            주어진 정보를 이용하여 XmlItemReader 인스턴스를 초기화합니다.
+            </summary>
+            <param name="filePathOrContent">Xml 파일이 있는 경로 혹은 Xml 내용 자체입니다.</param>
+            <param name="isPath">주어진 문자열이 파일의 경로인지에 대한 여부입니다.</param>
+        </member>
+        <member name="M:AILibrary.XmlItemReader.CheckValidXmlContent">
+            <summary>
+            현재 참조하려고 하는 Xml 파일이 유효한 Xml 파일인지 검사합니다. 유효하지 않을 시 예외가 throw 됩니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.XmlItemReader.GetItemAsWorkBook">
+            <summary>
+            현재 참조 중인 Xml 파일에서 아이템 정보를 WorkBook 인스턴스로 return 합니다.
+            </summary>
+            <returns>WorkBook 인스턴스입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlItemReader.GetItemAsPartialData">
+            <summary>
+            현재 참조 중인 Xml 파일에서 아이템 정보를 PartialData 인스턴스로 return 합니다.
+            </summary>
+            <returns>PartialData 인스턴스입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlItemReader.GetItemAsUnknownData">
+            <summary>
+            현재 참조 중인 Xml 파일에서 아이템 정보를 UnknownData 인스턴스로 return 합니다.
+            </summary>
+            <returns>UnknownData 인스턴스입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlItemReader.GetItemAsDataAddress">
+            <summary>
+            현재 참조 중인 Xml 파일에서 아이템 정보를 DataAddress 인스턴스로 return 합니다.
+            </summary>
+            <returns>DataAddress 인스턴스입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlItemReader.GetItemDescription">
+            <summary>
+            현재 참조 중인 Xml 파일에서 아이템에 대한 설명을 가져옵니다.
+            </summary>
+            <returns>아이템의 이름입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlItemReader.GetItemName">
+            <summary>
+            현재 참조 중인 Xml 파일에서 아이템 이름을 가져옵니다.
+            </summary>
+            <returns>아이템의 이름입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlItemReader.GetID">
+            <summary>
+            현재 참조 중인 Xml 파일에서 아이템 ID를 가져옵니다.
+            </summary>
+            <returns>아이템 ID입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlItemReader.GetSprite">
+            <summary>
+            현재 참조 중인 Xml 파일에서 아이템 이미지(Sprite)를 가져옵니다. 가져올 때는 Resources 폴더 하위에 있는 Images 폴더에서 참조하게 됩니다.
+            </summary>
+            <returns>아이템의 이미지 (Sprite)입니다.</returns>
+        </member>
+        <member name="T:AILibrary.XmlJumpReader">
+            <summary>
+            스크립트의 Xml 파일을 읽어 Jump 스크립트와 관련된 항목을 Parsing 해주는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.XmlJumpReader.#ctor(System.String,System.Boolean)">
+            <summary>
+            주어진 정보를 이용하여 XmlJumpReader 인스턴스를 초기화합니다.
+            </summary>
+            <param name="filePathOrContent">Xml 파일이 있는 경로 혹은 Xml 내용 자체입니다.</param>
+            <param name="isPath">주어진 문자열이 파일의 경로인지에 대한 여부입니다.</param>
+        </member>
+        <member name="M:AILibrary.XmlJumpReader.GetLinkedScript(System.Int32)">
+            <summary>
+            대상 스크립트에서 해당 ID에 해당하는 스크립트에서 이 스크립트와 연결될 스크립트를 읽어옵니다.
+            </summary>
+            <param name="scriptID">목표 스크립트 ID입니다.</param>
+            <returns>연결될 스크립트의 이름입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlJumpReader.GetScript(System.Int32)">
+            <summary>
+            대상 스크립트에서 정보를 수집하여 JumpScript 인스턴스를 만듭니다.
+            </summary>
+            <param name="scriptID">목표 스크립트 ID입니다.</param>
+            <returns>완성된 JumpScript 인스턴스입니다.</returns>
+        </member>
+        <member name="T:AILibrary.XmlMessageReader">
+            <summary>
+            스크립트의 Xml 파일을 읽어 Message 스크립트와 관련된 항목을 Parsing 해주는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.XmlMessageReader.#ctor(System.String,System.Boolean)">
+            <summary>
+            주어진 정보를 이용하여 XmlMessageReader 인스턴스를 초기화합니다.
+            </summary>
+            <param name="filePathOrContent">Xml 파일이 있는 경로 혹은 Xml 내용 자체입니다.</param>
+            <param name="isPath">주어진 문자열이 파일의 경로인지에 대한 여부입니다.</param>
+        </member>
+        <member name="M:AILibrary.XmlMessageReader.GetMessage(System.Int32)">
+            <summary>
+            대상 스크립트에서 해당 ID에 해당하는 스크립트의 메시지를 읽어옵니다.
+            </summary>
+            <param name="scriptID">가져오고자 하는 메시지가 들어있는 스크립트 ID입니다.</param>
+            <returns>검색 결과로 나온 스크립트 메시지입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlMessageReader.GetCharacter(System.Int32)">
+            <summary>
+            대상 스크립트에서 해당 ID에 해당하는 스크립트의 캐릭터 이름을 읽어옵니다.
+            </summary>
+            <param name="scriptID">가져오고자 하는 메시지가 들어있는 스크립트 ID입니다.</param>
+            <returns>검색 결과로 나온 스크립트 메시지입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlMessageReader.GetSprite(System.Int32)">
+            <summary>
+            대상 스크립트에서 해당 ID에 해당하는 스크립트의 이미지(Sprite)를 읽어옵니다. Xml 엘리먼트의 값을 통해 Resources 폴더 하위에 있는 Images 폴더에서 가져옵니다.
+            </summary>
+            <param name="scriptID">가져오고자 하는 이미지가 들어있는 스크립트 ID입니다.</param>
+            <returns>검색 결과로 나온 스크립트 이미지입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlMessageReader.GetScript(System.Int32)">
+            <summary>
+            대상 스크립트에서 정보를 수집하여 MessageScript 인스턴스를 만듭니다. 반환된 인스턴스는 기본 대화 인물의 이름을 가져옵니다.
+            </summary>
+            <param name="scriptID">목표 스크립트 ID입니다.</param>
+            <returns>완성된 MessageScript 인스턴스입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlMessageReader.GetFullScript(System.Int32)">
+            <summary>
+            대상 스크립트에서 정보를 수집하여 MessageScript 인스턴스를 만듭니다. 반환된 인스턴스는 스크립트에서 대화 인물의 이름도 포함하여 가져옵니다.
+            </summary>
+            <param name="scriptID">목표 스크립트 ID입니다.</param>
+            <returns>완성된 MessageScript 인스턴스입니다.</returns>
+        </member>
+        <member name="T:AILibrary.UnknownData">
+            <summary>
+            미지의 자료에 대한 정보를 담고 있는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.UnknownData.#ctor(System.Int32,System.String,UnityEngine.Sprite,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            아이템 구성을 위해 필요한 정보를 통해 UnknownData 인스턴스를 초기화합니다.
+            </summary>
+            <param name="itemID">해당 작업일지의 고유 ID를 가리킵니다.</param>
+            <param name="name">해당 작업일지의 이름입니다.</param>
+            <param name="itemSprite">아이템의 이미지를 나타냅니다. 기본 값은 null입니다.</param>
+            <param name="itemDescription">이 아이템에 대한 설명문을 나타냅니다.</param>
+            <param name="isGet">획득되었는지에 대한 여부입니다. 기본 값은 False입니다.</param>
+            <param name="isImported">Import 되었는지에 대한 여부입니다. 기본 값은 False입니다.</param>
+        </member>
+        <member name="T:AILibrary.WorkBook">
+            <summary>
+            작업 일지에 대한 정보를 담고 있는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.WorkBook.#ctor(System.Int32,System.String,UnityEngine.Sprite,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            아이템 구성을 위해 필요한 정보를 통해 WorkBook 인스턴스를 초기화합니다.
+            </summary>
+            <param name="itemID">해당 작업일지의 고유 ID를 가리킵니다.</param>
+            <param name="name">해당 작업일지의 이름입니다.</param>
+            <param name="itemSprite">아이템의 이미지를 나타냅니다. 기본 값은 null입니다.</param>
+            <param name="itemDescription">이 아이템에 대한 설명문을 나타냅니다.</param>
+            <param name="isGet">획득되었는지에 대한 여부입니다. 기본 값은 False입니다.</param>
+            <param name="isImported">Import 되었는지에 대한 여부입니다. 기본 값은 False입니다.</param>
+            <param name="isUserReadInCUI">유저가 CUI 환경에서 작업 일지를 읽었는지에 대한 여부입니다. 기본 값은 False입니다. </param>
+            <param name="isUserReadInGUI">유저가 GUI 환경에서 작업 일지를 읽었는지에 대한 여부입니다. 기본 값은 False입니다. </param>
+        </member>
+        <member name="P:AILibrary.WorkBook.IsUserReadInCUI">
+            <summary>
+            유저가 CUI 환경에서 작업 일지를 읽었는지에 대한 여부를 가져오거나 설정합니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.WorkBook.IsUserReadInGUI">
+            <summary>
+            유저가 GUI 환경에서 작업 일지를 읽었는지에 대한 여부를 가져오거나 설정합니다.
+            </summary>
+        </member>
+        <member name="T:AILibrary.XmlFolderReader">
+            <summary>
+            폴더 정보가 들어있는 Xml 파일을 읽어 Parsing 해주는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.XmlFolderReader.#ctor(System.String,System.Boolean)">
+            <summary>
+            주어진 정보를 이용하여 XmlFolderReader 인스턴스를 초기화합니다.
+            </summary>
+            <param name="filePathOrContent">Xml 파일이 있는 경로 혹은 Xml 내용 자체입니다.</param>
+            <param name="isPath">주어진 문자열이 파일의 경로인지에 대한 여부입니다.</param>
+        </member>
+        <member name="M:AILibrary.XmlFolderReader.CheckValidXmlContent">
+            <summary>
+            현재 참조하려고 하는 Xml 파일이 유효한 Xml 파일인지 검사합니다. 유효하지 않을 시 예외가 throw 됩니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.XmlFolderReader.GetFolder">
+            <summary>
+            현재 참조 중인 Xml 파일에서 폴더의 정보를 가져옵니다.
+            </summary>
+            <returns>폴더의 정보입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlFolderReader.GetFolderID">
+            <summary>
+            현재 참조 중인 Xml 파일에서 폴더의 ID를 가져옵니다.
+            </summary>
+            <returns>폴더의 ID입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlFolderReader.GetFolderSprite">
+            <summary>
+            현재 참조 중인 Xml 파일에서 폴더 이미지(Sprite)를 가져옵니다. 가져올 때는 Resources 폴더 하위에 있는 Images 폴더에서 참조하게 됩니다.
+            </summary>
+            <returns>폴더 이미지 (Sprite)입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlFolderReader.GetUpperFolder">
+            <summary>
+            현재 참조 중인 Xml 파일에서 상위 폴더의 정보를 가져옵니다. 상위 폴더가 존재하지 않으면 null을 반환합니다.
+            </summary>
+            <returns>상위 폴더의 정보입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlFolderReader.GetLowerFolder">
+            <summary>
+            현재 참조 중인 Xml 파일에서 하위 폴더들의 정보를 가져옵니다.
+            </summary>
+            <returns>하위 폴더의 정보입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlFolderReader.GetFolderName">
+            <summary>
+            현재 참조 중인 Xml 파일에서 폴더의 이름을 가져옵니다.
+            </summary>
+            <returns>폴더의 이름입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlFolderReader.GetLowerFolderNumber">
+            <summary>
+            현재 참조 중인 Xml 파일에서 하위 폴더의 개수를 가져옵니다.
+            </summary>
+            <returns>하위 폴더의 개수입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlFolderReader.GetItemNumber">
+            <summary>
+            현재 참조 중인 Xml 파일에서 폴더에 포함된 아이템들의 개수를 가져옵니다.
+            </summary>
+            <returns>포함된 아이템의 개수입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlFolderReader.GetItems">
+            <summary>
+            현재 참조 중인 Xml 파일에서 폴더에 포함된 아이템들을 가져옵니다.
+            </summary>
+            <returns>아이템의 배열입니다.</returns>
+        </member>
+        <member name="T:AILibrary.XmlMoveReader">
+            <summary>
+            스크립트의 Xml 파일을 읽어 Move 스크립트와 관련된 항목을 Parsing 해주는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.XmlMoveReader.#ctor(System.String,System.Boolean)">
+            <summary>
+            주어진 정보를 이용하여 XmlSoundReader 인스턴스를 초기화합니다.
+            </summary>
+            <param name="filePathOrContent">Xml 파일이 있는 경로 혹은 Xml 내용 자체입니다.</param>
+            <param name="isPath">주어진 문자열이 파일의 경로인지에 대한 여부입니다.</param>
+        </member>
+        <member name="M:AILibrary.XmlMoveReader.GetXQuantity(System.Int32)">
+            <summary>
+            대상 스크립트에서 해당 ID에 해당하는 스크립트에서 X축으로 이동할 양을 읽어옵니다.
+            </summary>
+            <param name="scriptID">목표 스크립트 ID입니다.</param>
+            <returns>X축으로 이동할 양을 가리킵니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlMoveReader.GetYQuantity(System.Int32)">
+            <summary>
+            대상 스크립트에서 해당 ID에 해당하는 스크립트에서 Y축으로 이동할 양을 읽어옵니다.
+            </summary>
+            <param name="scriptID">목표 스크립트 ID입니다.</param>
+            <returns>Y축으로 이동할 양을 가리킵니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlMoveReader.GetScript(System.Int32)">
+            <summary>
+            대상 스크립트에서 정보를 수집하여 MoveScript 인스턴스를 만듭니다.
+            </summary>
+            <param name="scriptID">목표 스크립트 ID입니다.</param>
+            <returns>완성된 MoveScript 인스턴스입니다.</returns>
+        </member>
+        <member name="T:AILibrary.XmlBackgroundScript">
+            <summary>
+            스크립트의 Xml 파일을 읽어 Background 스크립트와 관련된 항목을 Parsing 해주는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.XmlBackgroundScript.#ctor(System.String,System.Boolean)">
+            <summary>
+            주어진 정보를 이용하여 XmlBackgroundReader 인스턴스를 초기화합니다.
+            </summary>
+            <param name="filePathOrContent">Xml 파일이 있는 경로 혹은 Xml 내용 자체입니다.</param>
+            <param name="isPath">주어진 문자열이 파일의 경로인지에 대한 여부입니다.</param>
+        </member>
+        <member name="M:AILibrary.XmlBackgroundScript.GetSprite(System.Int32)">
+            <summary>
+            대상 스크립트에서 해당 ID에 해당하는 스크립트의 이미지(Sprite)를 읽어옵니다. Xml 엘리먼트의 값을 통해 Resources 폴더 하위에 있는 Images 폴더에서 가져옵니다.
+            </summary>
+            <param name="scriptID">가져오고자 하는 이미지가 들어있는 스크립트 ID입니다.</param>
+            <returns>검색 결과로 나온 스크립트 이미지입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlBackgroundScript.GetIsWrappingUI(System.Int32)">
+            <summary>
+            대상 스크립트에서 해당 ID에 해당하는 스크립트에서 현재 UI를 덮어서 적용되는 것인지 여부를 읽어옵니다.
+            </summary>
+            <param name="scriptID">목표 스크립트 ID입니다.</param>
+            <returns>검색 결과로 나온 결과입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlBackgroundScript.GetScript(System.Int32)">
+            <summary>
+            대상 스크립트에서 정보를 수집하여 BackgroundScript 인스턴스를 만듭니다.
+            </summary>
+            <param name="scriptID">목표 스크립트 ID입니다.</param>
+            <returns>완성된 BackgroundScript 인스턴스입니다.</returns>
+        </member>
+        <member name="T:AILibrary.XmlReader">
+            <summary>
+            Xml 파일을 읽어오는 클래스를 구성하는 추상 클래스입니다.
+            </summary>
+        </member>
+        <member name="F:AILibrary.XmlReader.targetXmlFile">
+            <summary>
+            이 XmlReader가 참조하고 있는 Xml 파일을 가리킵니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.XmlReader.#ctor(System.String,System.Boolean)">
+            <summary>
+            주어진 정보를 이용하여 XmlReader 인스턴스를 초기화합니다.
+            </summary>
+            <param name="filePathOrContent">Xml 파일이 있는 경로 혹은 Xml 내용 자체입니다.</param>
+            <param name="isPath">주어진 문자열이 파일의 경로인지에 대한 여부입니다.</param>
+        </member>
+        <member name="M:AILibrary.XmlReader.CheckValidXmlContent">
+            <summary>
+            현재 참조하려고 하는 Xml 파일이 유효한 Xml 파일인지 검사합니다. 유효하지 않을 시 예외가 throw 됩니다.
+            </summary>
+        </member>
+        <member name="T:AILibrary.XmlScriptReader">
+            <summary>
+            스크립트의 Xml 파일을 읽어 Parsing 해주는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.XmlScriptReader.#ctor(System.String,System.Boolean)">
+            <summary>
+            주어진 정보를 이용하여 XmlScriptReader 인스턴스를 초기화합니다.
+            </summary>
+            <param name="filePathOrContent">Xml 파일이 있는 경로 혹은 Xml 내용 자체입니다.</param>
+            <param name="isPath">주어진 문자열이 파일의 경로인지에 대한 여부입니다.</param>
+        </member>
+        <member name="M:AILibrary.XmlScriptReader.GetScript(System.Int32)">
+            <summary>
+            해당 XmlReader 인스턴스를 통해 그에 맞는 스크립트 인스턴스를 읽어들여 반환합니다.
+            </summary>
+            <param name="scriptID">읽어들일 스크립트 ID입니다.</param>
+            <returns>스크립트 인스턴스입니다. Interface로 형바꿈되어 반환됩니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlScriptReader.CheckValidXmlContent">
+            <summary>
+            현재 참조하려고 하는 Xml 파일이 유효한 Xml 파일인지 검사합니다. 유효하지 않을 시 예외가 throw 됩니다.
+            </summary>
+        </member>
+        <member name="P:AILibrary.XmlScriptReader.TotalScriptNum">
+            <summary>
+            현재 대상 스크립트의 총 스크립트 개수를 가져옵니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.XmlScriptReader.ConvertReader(AILibrary.XmlScriptReader,System.Int32)">
+            <summary>
+            이 인스턴스를 XmlScriptReader 파생 클래스들로 변환합니다.
+            </summary>
+            <param name="toConvert">바꾸려고 하는 인스턴스입니다.</param>
+            <param name="scriptTypeCode">바꾸고자 하는 XmlScriptReader 파생 클래스의 TypeCode입니다.</param>
+        </member>
+        <member name="M:AILibrary.XmlScriptReader.IsNeedThisScript(System.Int32,System.Int32)">
+            <summary>
+            스크립트 코드와 스크립트 ID를 통해 해당 ID 스크립트에서 주어진 코드에 해당하는 스크립트를 필요로 하는 지를 반환합니다.
+            </summary>
+            <param name="scriptTypeCode">판단하고자 하는 스크립트 코드입니다.</param>
+            <param name="scriptID">판단하고자 하는 스크립트의 ID입니다.</param>
+            <returns>필요 유무입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlScriptReader.CheckNeedScript(System.String,System.Int32)">
+            <summary>
+            어떤 스크립트 종류가 필요한지 검사합니다.
+            </summary>
+            <param name="targetScriptKeyElementName">검사하고자 하는 스크립트에서 핵심적으로 필요한 Xml 엘리먼트의 이름을 나타냅니다.</param>
+            <param name="scriptID">검사할 Script ID입니다.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AILibrary.XmlScriptReader.GetLevelTwoElementValueFromXml(System.String,System.Int32)">
+            <summary>
+            레벨 2인 Xml Element의 값을 가져옵니다.
+            </summary>
+            <param name="targetElementName">가져올 Xml Element의 이름입니다.</param>
+            <param name="scriptID">목표 스크립트가 가지고 있는 Script ID입니다.</param>
+            <returns>가져온 값을 반환합니다.</returns>
+        </member>
+        <member name="T:AILibrary.XmlSleepReader">
+            <summary>
+            스크립트의 Xml 파일을 읽어 Sleep 스크립트와 관련된 항목을 Parsing 해주는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.XmlSleepReader.#ctor(System.String,System.Boolean)">
+            <summary>
+            주어진 정보를 이용하여 XmlSleepReader 인스턴스를 초기화합니다.
+            </summary>
+            <param name="filePathOrContent">Xml 파일이 있는 경로 혹은 Xml 내용 자체입니다.</param>
+            <param name="isPath">주어진 문자열이 파일의 경로인지에 대한 여부입니다.</param>
+        </member>
+        <member name="M:AILibrary.XmlSleepReader.GetSleepTime(System.Int32)">
+            <summary>
+            대상 스크립트에서 해당 ID에 해당하는 스크립트에서 얼마나 행동을 멈출 지를 읽어옵니다.
+            </summary>
+            <param name="scriptID">목표 스크립트 ID입니다.</param>
+            <returns>Sleep 양을 가져옵니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlSleepReader.GetScript(System.Int32)">
+            <summary>
+            대상 스크립트에서 정보를 수집하여 SleepScript 인스턴스를 만듭니다.
+            </summary>
+            <param name="scriptID">목표 스크립트 ID입니다.</param>
+            <returns>완성된 SleepScript 인스턴스입니다.</returns>
+        </member>
+        <member name="T:AILibrary.XmlSoundReader">
+            <summary>
+            스크립트의 Xml 파일을 읽어 Sound 스크립트와 관련된 항목을 Parsing 해주는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.XmlSoundReader.#ctor(System.String,System.Boolean)">
+            <summary>
+            주어진 정보를 이용하여 XmlSoundReader 인스턴스를 초기화합니다.
+            </summary>
+            <param name="filePathOrContent">Xml 파일이 있는 경로 혹은 Xml 내용 자체입니다.</param>
+            <param name="isPath">주어진 문자열이 파일의 경로인지에 대한 여부입니다.</param>
+        </member>
+        <member name="M:AILibrary.XmlSoundReader.GetIsRepeat(System.Int32)">
+            <summary>
+            대상 스크립트에서 해당 ID에 해당하는 스크립트에서 사운드가 반복되는 여부를 읽어옵니다.
+            </summary>
+            <param name="scriptID">목표 스크립트 ID입니다.</param>
+            <returns>검색 결과로 나온 결과입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlSoundReader.GetSound(System.Int32)">
+            <summary>
+            대상 스크립트에서 해당 ID에 해당하는 스크립트에서 사운드 파일을 읽어옵니다.
+            </summary>
+            <param name="scriptID">목표 스크립트 ID입니다.</param>
+            <returns>검색 결과로 나온 사운드 파일입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlSoundReader.GetScript(System.Int32)">
+            <summary>
+            대상 스크립트에서 정보를 수집하여 SoundScript 인스턴스를 만듭니다.
+            </summary>
+            <param name="scriptID">목표 스크립트 ID입니다.</param>
+            <returns>완성된 SoundScript 인스턴스입니다.</returns>
+        </member>
+        <member name="T:AILibrary.XmlVibrationReader">
+            <summary>
+            스크립트의 Xml 파일을 읽어 Vibration 스크립트와 관련된 항목을 Parsing 해주는 클래스입니다.
+            </summary>
+        </member>
+        <member name="M:AILibrary.XmlVibrationReader.#ctor(System.String,System.Boolean)">
+            <summary>
+            주어진 정보를 이용하여 XmlVibrationReader 인스턴스를 초기화합니다.
+            </summary>
+            <param name="filePathOrContent">Xml 파일이 있는 경로 혹은 Xml 내용 자체입니다.</param>
+            <param name="isPath">주어진 문자열이 파일의 경로인지에 대한 여부입니다.</param>
+        </member>
+        <member name="M:AILibrary.XmlVibrationReader.GetWaveQuantity(System.Int32)">
+            <summary>
+            대상 스크립트에서 흔들리는 횟수를 가져옵니다. VibrationScript에 해당하는 스크립트가 아닐 시 예외가 throw됩니다.
+            </summary>
+            <param name="scriptID">흔들리는 횟수 정보가 담겨있는 스크립트 ID입니다.</param>
+            <returns>흔들리는 횟수입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlVibrationReader.GetSpeed(System.Int32)">
+            <summary>
+            대상 스크립트에서 흔들리는 속도를 가져옵니다. VibrationScript에 해당하는 스크립트가 아닐 시 예외가 throw됩니다.
+            </summary>
+            <param name="scriptID">흔들리는 속도 정보가 담겨있는 스크립트 ID입니다.</param>
+            <returns>흔들리는 속도입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlVibrationReader.GetDirection(System.Int32)">
+            <summary>
+            대상 스크립트에서 흔들리는 방향을 가져옵니다. VibrationScript에 해당하는 스크립트가 아닐 시 예외가 throw됩니다.
+            </summary>
+            <param name="scriptID">흔들리는 방향 정보가 담겨있는 스크립트 ID입니다.</param>
+            <returns>흔들리는 방향입니다.</returns>
+        </member>
+        <member name="M:AILibrary.XmlVibrationReader.GetScript(System.Int32)">
+            <summary>
+            대상 스크립트에서 정보를 수집하여 VibrationScript 인스턴스를 만듭니다.
+            </summary>
+            <param name="scriptID">목표 스크립트 ID입니다.</param>
+            <returns>완성된 VibrationScript 인스턴스입니다.</returns>
+        </member>
+    </members>
+</doc>
