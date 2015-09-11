@@ -35,6 +35,21 @@ namespace AILibrary
         }
 
         /// <summary>
+        /// 대상 스크립트에서 움직일 거리를 가져옵니다. VibrationScript에 해당하는 스크립트가 아닐 시 예외가 throw됩니다.
+        /// </summary>
+        /// <param name="scriptID">움직일 거리 정보가 담겨있는 스크립트 ID입니다.</param>
+        /// <returns>거리입니다.</returns>
+        public float GetDistance(int scriptID)
+        {
+            if (this.IsNeedThisScript(6, scriptID))
+            {
+                return float.Parse(base.GetLevelTwoElementValueFromXml("VibeDistance", scriptID));
+            }
+
+            throw new InvalidOperationException("이 스크립트는 흔들림 스크립트에 해당하지 않는 스크립트입니다.");
+        }
+
+        /// <summary>
         /// 대상 스크립트에서 흔들리는 속도를 가져옵니다. VibrationScript에 해당하는 스크립트가 아닐 시 예외가 throw됩니다.
         /// </summary>
         /// <param name="scriptID">흔들리는 속도 정보가 담겨있는 스크립트 ID입니다.</param>
@@ -73,7 +88,7 @@ namespace AILibrary
         {
             if (this.IsNeedThisScript(6, scriptID))
             {
-                return new VibrationScript(this.GetDirection(scriptID), this.GetSpeed(scriptID), this.GetWaveQuantity(scriptID));
+                return new VibrationScript(this.GetDirection(scriptID), this.GetSpeed(scriptID), this.GetDistance(scriptID), this.GetWaveQuantity(scriptID));
             }
 
             throw new InvalidOperationException("이 스크립트는 흔들림 스크립트에 해당하지 않는 스크립트입니다.");

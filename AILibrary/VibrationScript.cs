@@ -15,8 +15,9 @@ namespace AILibrary
         /// </summary>
         /// <param name="direction">흔들리는 방향을 설정합니다.</param>
         /// <param name="speed">흔들리는 속도를 설정합니다.</param>
+        /// <param name="moveDistance">움직일 거리를 설정합니다.</param>
         /// <param name="waveQuantity">흔들리는 횟수를 설정합니다.</param>
-        public VibrationScript(VibrationState direction, float speed, int waveQuantity)
+        public VibrationScript(VibrationState direction, float speed, float moveDistance, int waveQuantity)
         {
             base.ScriptCode = (int)ScriptTypeCode.VibrationScript;
             base.IsStepScript = true;
@@ -37,6 +38,14 @@ namespace AILibrary
         /// 흔들리는 속도를 가져옵니다.
         /// </summary>
         public float Speed
+        {
+            get; private set;
+        }
+
+        /// <summary>
+        /// 움직일 거리를 가져옵니다.
+        /// </summary>
+        public float MoveDistance
         {
             get; private set;
         }
