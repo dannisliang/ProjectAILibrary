@@ -50,7 +50,7 @@ namespace AILibrary
         /// </summary>
         public string EventXmlFileName
         {
-            get; set;
+            get; private set;
         }
     }
 }
