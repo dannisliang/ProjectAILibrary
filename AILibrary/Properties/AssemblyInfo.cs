@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // 어셈블리와 관련된 정보를 수정하려면
 // 이 특성 값을 변경하십시오.
 [assembly: AssemblyTitle("AILibrary")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Class Library for ProjectAI, unity game project.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("AILibrary")]
