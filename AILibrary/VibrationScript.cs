@@ -22,6 +22,7 @@ namespace AILibrary
             base.ScriptCode = (int)ScriptTypeCode.VibrationScript;
             base.IsStepScript = true;
             this.Direction = direction;
+            this.MoveDistance = moveDistance;
             this.Speed = speed;
             this.WaveQuantity = waveQuantity;
         }

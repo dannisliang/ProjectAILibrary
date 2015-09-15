@@ -20,8 +20,8 @@ namespace AILibrary
 
         /// <summary>
         /// 주어진 XmlFile을 통해 메인에서 발생할 이벤트를 설정합니다.
+        /// <param name="eventXmlFileNameToRead">이벤트 실행 시 참조할 Xml 파일입니다. Resources/Scripts 폴더 내에서 참조합니다.</param>
         /// </summary>
-        /// <param name="eventXmlFileNameToRead"></param>
         public void SetEvent(string eventXmlFileNameToRead)
         {
             this.IsEventSet = true;
